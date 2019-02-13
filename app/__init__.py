@@ -10,7 +10,7 @@ migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'
 from app.admin import bp as admin_bp
-app.register_blueprint(admin_bp)
+app.register_blueprint(admin_bp,url_prefix='/admin')
 from app.user import bp as user_bp
-app.register_blueprint(user_bp)
+app.register_blueprint(user_bp,url_prefix='/user')
 
