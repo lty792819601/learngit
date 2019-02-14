@@ -7,7 +7,7 @@ from app.admin.forms import LoginForm, RegistrationForm
 from app.models import User
 @bp.route('/')
 @bp.route('/index')
-#@login_required
+@login_required
 def index():
     posts = [
         {
@@ -59,3 +59,5 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('admin.login'))
     return render_template('register.html', title='Register', form=form)
+
+
