@@ -34,3 +34,10 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post {}>'.format(self.body)
+
+class Game(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    title = db.Column(db.String(40))
+    body = db.Column(db.Text)
+    def __repr__(self):
+        return '<Game {}>'.format(self.title)
