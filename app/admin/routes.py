@@ -3,23 +3,14 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app.admin import bp
-from app.admin.forms import LoginForm, RegistrationForm,GameForm
+from app.admin.forms import LoginForm, RegistrationForm,GameForm,BianjiGameForm
 from app.models import User,Game
 @bp.route('/')
 @bp.route('/index')
 @login_required
 def index():
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template('index.html', title='Home', posts=posts)
+    games = Game.query.all()
+    return render_template('index.html', title='Home', games=games)
 
 
 @bp.route('/login', methods=['GET', 'POST'])
@@ -63,11 +54,7 @@ def register():
 @bp.route('/editgame',methods=['GET','POST'])
 @login_required
 def editgame():
-    
     form = GameForm()
-    print(form.title.data)
-    print(form.body.data)
-    print(form.validate_on_submit())
     if form.validate_on_submit():
         game = Game(title=form.title.data, body=form.body.data) 
         db.session.add(game)
@@ -75,3 +62,19 @@ def editgame():
         return redirect(url_for('admin.index'))
     return render_template('editgame.html',title='Editgame',form=form)
 
+@bp.route('/bianjigame',methods=['GET','POST'])
+@login_required
+def bianjigame():
+    gamename = request.args.get("title")
+    gamebody = request.args.get("body")
+    form = BianjiGameForm(gamename)
+    if form.validate_on_submit():
+        game = Game(title=form.title.data,body=form.body.data)
+        db.session.commit()
+        flash('ok')
+        return redirect(url_for('admin.index'))
+    elif request.method == 'GET':
+        gamename = request.args.get("title")
+        gamebody = request.args.get("body")
+    
+    return render_template('bianjigame.html',title='Bianji',form=form) 

@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>Hi, {{ current_user.username }}!</h1>
-    {% for post in posts %}
-    <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div>
+    {% for game in games %}
+    <p><a href="{{ url_for('admin.bianjigame',title=game.title) }}">{{ game.title }}</a><b>{{ game.body }}</b></p>
     {% endfor %}
 {% endblock %}

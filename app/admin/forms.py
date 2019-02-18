@@ -33,3 +33,8 @@ class GameForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     body = StringField('Body', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+class BianjiGameForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    body = StringField('Body', validators=[DataRequired()])
+    submit = SubmitField('Submit')

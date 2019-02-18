@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if games %}
+    {% for game in games%}
+        <h3><a href="{{ url_for('admin.editgame',title=game.title> }}">{{game.title}}</a></h3>
+    {% endfor %}
+{% else %}
+    <p></p>
+    <a ></a>
+{% endif %}
+
+
+{% endblock %}
